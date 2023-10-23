@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icon/spider.png</file>
+    <file>icon/lock.png</file>
+    <file>icon/close-button.png</file>
+    <file>icon/minus-button.png</file>
+    <file>icon/decryption.png</file>
+    <file>icon/encryption.png</file>
+    <file>icon/close.png</file>
+    <file>icon/minus.png</file>
+  </qresource>
+</RCC>

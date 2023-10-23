@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EncryptionWindow</class>
+ <widget class="QMainWindow" name="EncryptionWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>428</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>428</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>428</height>
+   </size>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>Simple-DES</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/icons/icon/lock.png</normaloff>:/icons/icon/lock.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>26</width>
+    <height>26</height>
+   </size>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonTextOnly</enum>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AnimatedDocks</set>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="main_frame">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>821</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame {
+	background-color:rgb(255, 255, 255);
+}
+
+QPushButton {
+	border: none;
+}
+
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <widget class="QFrame" name="content_frame">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>30</y>
+       <width>501</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+	border-radius:10px;
+	background-color:rgb(240, 240, 240);
+	padding-left:10px;
+	padding-right:10px;
+}
+
+QPushButton:hover {
+	background-color:rgb(240, 240, 240);
+}
+
+#content_frame {
+	border:3px solid rgb(170, 170, 255);
+	border-radius:20px
+}
+
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLineEdit" name="plain_text_input">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>30</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="key_input">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>90</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="dragEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="set_key_check">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>90</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Set Key</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="encrpyt_text_label">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>150</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Encrypted Text</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="plain_text_label">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Plain Text</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="generate_button">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>310</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color:white;
+	background-color:rgb(85, 0, 127);
+	border-radius:18px;
+}
+
+QPushButton::pressed {
+	background-color:rgb(170, 170, 255);
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Generate</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="char_button">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>240</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>string</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">choose_mode_group</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="binary_button">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>200</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>binary</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">choose_mode_group</string>
+      </attribute>
+     </widget>
+     <widget class="QTextEdit" name="encrypted_text_input">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>150</y>
+        <width>241</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTextEdit {
+	background-color:rgb(240, 240, 240);
+	border:none;
+	border-radius:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+QTextEdit QScrollBar::handle:vertical {
+	background-color:rgb(170, 170, 255);
+	border-radius:5px
+}</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="menu_frame">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>30</y>
+       <width>211</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+	border-radius:10px;
+	background-color:rgb(255, 255, 255);
+}
+
+QFrame {
+	background-color:rgb(210, 213, 255);
+	border-radius:20px
+}
+
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="decryption_button">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>90</y>
+        <width>171</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton::hover {
+	background-color:rgb(230, 230, 230)
+}
+
+QPushButton::pressed {
+	background-color:rgb(224, 220, 240)
+}</string>
+      </property>
+      <property name="text">
+       <string>  Decryption</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/icons/icon/decryption.png</normaloff>:/icons/icon/decryption.png</iconset>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="encryption_button">
+      <property name="geometry">
+       <rect>
+        <x>18</x>
+        <y>20</y>
+        <width>171</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(95, 0, 147);
+color:white;</string>
+      </property>
+      <property name="text">
+       <string>  Encryption</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/icons/icon/encryption.png</normaloff>:/icons/icon/encryption.png</iconset>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="crack_button">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>160</y>
+        <width>171</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton::hover {
+	background-color:rgb(230, 230, 230)
+}
+
+QPushButton::pressed {
+	background-color:rgb(224, 220, 240)
+}</string>
+      </property>
+      <property name="text">
+       <string>Crack</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/icons/icon/spider.png</normaloff>:/icons/icon/spider.png</iconset>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="choose_mode_group"/>
+ </buttongroups>
+</ui>
