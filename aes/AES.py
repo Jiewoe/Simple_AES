@@ -9,6 +9,12 @@ cut = [
 
 back_16 = 0b1111111111111111
 
+RCON = [
+    0b10000000,
+    0b00110000
+]
+
+
 def text16bit_to_nibble_matrix(bit_16):
     """
         将16位数据划分为半字节矩阵
@@ -19,8 +25,8 @@ def text16bit_to_nibble_matrix(bit_16):
     ]
 
 def nibble_matrix_to_text16bit(matrix) -> int:
-    return ((matrix&cut[0][0]) << cut[0][1]) + ((matrix&cut[1][0]) << cut[1][1]) + \
-           ((matrix&cut[2][0]) << cut[2][1]) + ((matrix&cut[3][0]) << cut[3][1])
+    return ((matrix[0][0]&cut[0][0]) << cut[0][1]) + ((matrix[0][1]&cut[1][0]) << cut[1][1]) + \
+           ((matrix[1][0]&cut[2][0]) << cut[2][1]) + ((matrix[1][1]&cut[3][0]) << cut[3][1])
 
 def get_bit_vector(num, bit_width) -> list:
     vector = []
@@ -44,9 +50,8 @@ class AES:
     def __init__(self) -> None:
         self.rounds = 2
         self.plain_text = ""
-        self.rounds = 1
         self.bit_width = 16
-        self.keys = []
+        self.keys = [0x2D55]
         self.plain_nibbles_groups = []
         self.cipher_nibbles_groups = []
 
@@ -160,7 +165,23 @@ class AES:
         return new_matrix
     
     def extend_keys(self):
-        pass
+        w_0 = self.keys[0] >> 8
+        w_1 = self.keys[0] & 0b11111111
+
+        for i in range(2):
+            left_temp = w_1 >> 4
+            right_temp = w_1 & 0b00001111
+            temp = left_temp
+
+            left_temp = self.sbox[right_temp >> 2][right_temp & 0b0011]
+            right_temp = self.sbox[temp >> 2][temp & 0b0011]
+
+            temp = (left_temp << 4) + right_temp
+
+            w_0 = w_0 ^ RCON[i] ^ temp
+            w_1 = w_0 ^ w_1
+
+            self.keys.append((w_0 << 8) + w_1)
 
     def generate_sbox(self):
         """
@@ -193,6 +214,3 @@ class AES:
                     ele_bit_vector[k] = (temp % 2) ^ col_vector[k]
                 matrix[i][j] = vector_to_num(ele_bit_vector, element_bit_width)
 
-if __name__ == "__main__":
-
-    pass
