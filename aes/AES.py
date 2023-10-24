@@ -1,4 +1,5 @@
 from math_utils.galois import multiple_table
+import random
 
 cut = [
     (0b1111000000000000, 12),
@@ -52,8 +53,6 @@ class AES:
         self.plain_text = ""
         self.bit_width = 16
         self.keys = [0x2D55]
-        self.plain_nibbles_groups = []
-        self.cipher_nibbles_groups = []
 
         self.sbox = [
             [9, 4, 0x0A, 0x0B],
@@ -72,48 +71,105 @@ class AES:
                              [4, 1]]
         self.reverse_multi_matrix = [[9, 2],
                                      [2, 9]]
+        self.initial_vector = None
 
-    def encrypt(self, bit_16_text):
+    def init(self):
+        self.__generate_vector()
+        self.__extend_keys()
+
+    def encrypt(self, bit_16_text) -> int:
         """
             加密程序
             bit_16_text: 16位以内的整数
         """
         text_nibbles = text16bit_to_nibble_matrix(bit_16_text)
-        nibbles =  self.add_key(text_nibbles, 0)
+        nibbles =  self.__add_key(text_nibbles, 0)
 
         for i in range(1, self.rounds):
-            nibbles = self.nibble_replace(nibbles, self.sbox)
-            nibbles = self.shift_row(nibbles)
-            nibbles = self.mix_col(nibbles, self.multi_matrix)
-            nibbles = self.add_key(nibbles, i)
+            nibbles = self.__nibble_replace(nibbles, self.sbox)
+            nibbles = self.__shift_row(nibbles)
+            nibbles = self.__mix_col(nibbles, self.multi_matrix)
+            nibbles = self.__add_key(nibbles, i)
         
-        nibbles = self.nibble_replace(nibbles, self.sbox)
-        nibbles = self.shift_row(nibbles)
-        nibbles = self.add_key(nibbles, self.rounds)
+        nibbles = self.__nibble_replace(nibbles, self.sbox)
+        nibbles = self.__shift_row(nibbles)
+        nibbles = self.__add_key(nibbles, self.rounds)
 
         return nibble_matrix_to_text16bit(nibbles)
 
-    def decrypt(self, cipher_text):
+    def decrypt(self, cipher_text) -> int:
         """
             解密程序
             cipher_text: 16位以内的整数
         """
         text_nibbles = text16bit_to_nibble_matrix(cipher_text)
-        nibbles =  self.add_key(text_nibbles, self.rounds)
+        nibbles =  self.__add_key(text_nibbles, self.rounds)
 
         for i in reversed(range(1, self.rounds)):
-            nibbles = self.shift_row(nibbles)
-            nibbles = self.nibble_replace(nibbles, self.reverse_sbox)
-            nibbles = self.add_key(nibbles, i)
-            nibbles = self.mix_col(nibbles, self.reverse_multi_matrix)
+            nibbles = self.__shift_row(nibbles)
+            nibbles = self.__nibble_replace(nibbles, self.reverse_sbox)
+            nibbles = self.__add_key(nibbles, i)
+            nibbles = self.__mix_col(nibbles, self.reverse_multi_matrix)
             
-        nibbles = self.shift_row(nibbles)
-        nibbles = self.nibble_replace(nibbles, self.reverse_sbox)
-        nibbles = self.add_key(nibbles, 0)
+        nibbles = self.__shift_row(nibbles)
+        nibbles = self.__nibble_replace(nibbles, self.reverse_sbox)
+        nibbles = self.__add_key(nibbles, 0)
 
         return nibble_matrix_to_text16bit(nibbles)
 
-    def add_key(self, matrix, i) -> list[list[int]]:
+    def string_encrypt(self, plain_text: str) -> str:
+        text_vector = []
+
+        for item in plain_text:
+            text_vector.append(ord(item))
+        
+        cipher_vector = self.group_encrypt(text_vector)
+        cipher_text = ""
+
+        for item in cipher_vector:
+            cipher_text += chr(item)
+
+        return cipher_text
+
+    def string_decrypt(self, cipher_text: str) -> str:
+        text_vector = []
+
+        for item in cipher_text:
+            text_vector.append(ord(item))
+        
+        plain_vector = self.group_decrypt(text_vector)
+        plain_text = ""
+
+        for item in plain_vector:
+            plain_text += chr(item)
+
+        return plain_text
+
+    def group_encrypt(self, plain_nibbles_groups):
+        cipher_nibbles_groups = []
+
+        initial = plain_nibbles_groups[0] ^ self.initial_vector
+        cipher_nibbles_groups.append(self.encrypt(initial))
+
+        for i in range(1, len(self.plain_nibbles_groups)):
+            temp = self.cipher_nibbles_groups[i-1] ^ self.plain_nibbles_groups[i]
+            cipher_nibbles_groups.append(self.encrypt(temp))
+
+        return cipher_nibbles_groups
+
+    def group_decrypt(self, cipher_nibbles_groups):
+        plain_nibbles_groups = [0 for i in range(16)]
+
+        for i in reversed(range(1, len(cipher_nibbles_groups))):
+            temp = self.decrypt(cipher_nibbles_groups[i])
+            plain_nibbles_groups[i] = temp ^ cipher_nibbles_groups[i-1]
+
+        first = self.decrypt(cipher_nibbles_groups[0])
+        plain_nibbles_groups[0] = first ^ self.initial_vector
+        
+        return plain_nibbles_groups
+
+    def __add_key(self, matrix, i) -> list[list[int]]:
         """
             密钥加
         """
@@ -125,7 +181,7 @@ class AES:
         
         return matrix
 
-    def nibble_replace(self, matrix, box) -> list[list[int]]:
+    def __nibble_replace(self, matrix, box) -> list[list[int]]:
         """
             半字节替换
         """
@@ -137,7 +193,7 @@ class AES:
 
         return matrix
 
-    def shift_row(self, matrix) -> list[list[int]]:
+    def __shift_row(self, matrix) -> list[list[int]]:
         """
             行位移
         """
@@ -146,7 +202,7 @@ class AES:
 
         return matrix
 
-    def mix_col(self, matrix, multi_matrix) -> list[list[int]]:
+    def __mix_col(self, matrix, multi_matrix) -> list[list[int]]:
         """
             列混淆
         """
@@ -164,7 +220,7 @@ class AES:
         
         return new_matrix
     
-    def extend_keys(self):
+    def __extend_keys(self):
         w_0 = self.keys[0] >> 8
         w_1 = self.keys[0] & 0b11111111
 
@@ -183,7 +239,14 @@ class AES:
 
             self.keys.append((w_0 << 8) + w_1)
 
-    def generate_sbox(self):
+    def __generate_vector(self):
+        bit_size = 16
+        self.initial_vector = 0
+        
+        for i in range(bit_size):
+            self.initial_vector = self.initial_vector << 1 + round(random.random())
+
+    def __generate_sbox(self):
         """
             sbox、逆sbox 生成...
             好像直接给了sbox,这里就写到生成sbox

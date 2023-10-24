@@ -1,7 +1,7 @@
 from aes.AES import AES
 
 ase = AES()
-ase.extend_keys()
+ase.init()
 e = ase.encrypt(0x45C1)
 d = ase.decrypt(e)
 
