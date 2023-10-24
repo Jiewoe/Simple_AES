@@ -25,8 +25,8 @@ def text16bit_to_nibble_matrix(bit_16):
     ]
 
 def nibble_matrix_to_text16bit(matrix) -> int:
-    return ((matrix[0][0]&cut[0][0]) << cut[0][1]) + ((matrix[0][1]&cut[1][0]) << cut[1][1]) + \
-           ((matrix[1][0]&cut[2][0]) << cut[2][1]) + ((matrix[1][1]&cut[3][0]) << cut[3][1])
+    return ((matrix[0][0]) << cut[0][1]) + ((matrix[0][1]) << cut[1][1]) + \
+           ((matrix[1][0]) << cut[2][1]) + ((matrix[1][1]) << cut[3][1])
 
 def get_bit_vector(num, bit_width) -> list:
     vector = []
@@ -151,12 +151,12 @@ class AES:
             列混淆
         """
         new_matrix = []
-        for i in range(len(matrix)):
+        for i in range(len(multi_matrix)):
             row = []
-            for j in range(len(multi_matrix[0])):
+            for j in range(len(matrix[0])):
                 temp = []
                 for k in range(len(matrix[i])):
-                    temp.append(multiple_table[matrix[i][k]][multi_matrix[k][j]]);
+                    temp.append(multiple_table[multi_matrix[i][k]][matrix[k][j]]);
                 for k in range(1, len(temp)):
                     temp[0] = temp[0] ^ temp[k]
                 row.append(temp[0])
