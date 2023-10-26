@@ -12,12 +12,15 @@ class EncryptionWindow(QMainWindow):
     ENCRYPT = "encrypt"
     DECRYPT = "decrypt"
 
+    NORMAL = "normal encryption"
+    DOUBLE = "double encryption"
+    TROUPE = "troupe encryption"
+
     def __init__(self) -> None:
         self.mode = self.ENCRYPT
         super().__init__()
         self.ui = Ui_EncryptionWindow()
         self.ui.setupUi(self)
-
 
     def init(self) -> None:
         self.ui.generate_button.clicked.connect(self.generate)
@@ -26,11 +29,27 @@ class EncryptionWindow(QMainWindow):
         # self.ui.char_button.toggled.connect(self.plain_text_setting)
         self.ui.encryption_button.clicked.connect(self.change_encrypt_mode)
         self.ui.decryption_button.clicked.connect(self.change_decrypt_mode)
+        self.ui.key_input.textChanged.connect(self.format_text)
 
         # key_validator = QtGui.QRegExpValidator(QtCore.QRegExp("[01]{10,10}"), self.ui.key_input)
         # self.ui.key_input.setValidator(key_validator)
 
         self.window_mode_init(self.ENCRYPT)
+
+    def format_text(self):
+        text = self.ui.key_input.toPlainText()
+        if (text == ""):
+            return 
+        
+        cursor_position = self.ui.key_input.textCursor().position()
+        num = text.replace(" ", "")
+        if (len(num)%4 == 0 and text[-1]!=" "):
+            text += " "
+            self.ui.key_input.setText(text)
+
+            cursor = self.ui.key_input.textCursor()
+            cursor.setPosition(cursor_position+1)
+            self.ui.key_input.setTextCursor(cursor)
 
     def window_mode_init(self, mode: str):
         if self.mode == mode:
@@ -73,7 +92,7 @@ class EncryptionWindow(QMainWindow):
             self.ui.key_input.setReadOnly(False)
         else:
             self.ui.key_input.setReadOnly(True)
-
+            
     def plain_text_setting(self):
         choose_mode = self.ui.input_mode.currentText()
         if choose_mode == "binary":
@@ -85,34 +104,44 @@ class EncryptionWindow(QMainWindow):
     def generate(self) -> None:
         if self.mode == self.ENCRYPT:
             text = self.ui.plain_text_input.text()
-
         else:
             text = self.ui.encrypted_text_input.toPlainText()
+
+        encrypt_mode = self.ui.en_mode.currentText()
+        choose_mode = self.ui.input_mode.currentText()
 
         if text == "":
             if self.mode == self.ENCRYPT:
                 error_warning("Please enter plain text !  ")
+                if choose_mode == "binary" and re.match(r'^[01]+$', text) is None:
+                    error_warning("Plain text need n*16bit binary number !  ")
+                    return
             else:
                 error_warning("Please enter encrypted text !  ")
+                if choose_mode == "binary" and re.match(r'^[01]+$', text) is None:
+                    error_warning("Encrypted text need n*16bit binary number !  ")
+                    return
             return
-        
+
         if self.ui.set_key_check.isChecked():
-            key = self.ui.key_input.text()
+            key = self.ui.key_input.toPlainText().replace(" ", "")
             if key == "":
                 error_warning("Please set encryption key !  ")
                 return
-            elif len(key) != 10:
-                error_warning("Encryption key format has fault !  ")
+            elif re.match(r'^[01]+$', key) is None:
+                error_warning("Encryption key has fault !  ")
+                return
+            elif encrypt_mode==self.NORMAL and len(key) != 16:
+                error_warning("Encryption key need 16bit !  ")
+                return
+            elif encrypt_mode==self.DOUBLE and len(key)!=32:
+                error_warning("Encryption key need 32bit !  ")
+                return
+            elif encrypt_mode==self.TROUPE and len(key)!=48:
+                error_warning("Encryption key need 48bit !  ")
                 return
         else:
             key = ""
-
-        encrypt_mode = self.ui.en_mode.currentText()
-        choose_mode = self.ui.input_mode.currentText()
-        
-        if choose_mode == "binary" and re.match(r'^[01]+$', text) is None:
-            error_warning("Encrypted text format has fault !  ")
-            return
 
         data_dict = {
             "codeset": choose_mode,

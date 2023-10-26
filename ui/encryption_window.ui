@@ -362,11 +362,6 @@ QComboBox QAbstractItemView::item:selected
       </property>
       <item>
        <property name="text">
-        <string>mode</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
         <string>normal encryption</string>
        </property>
       </item>
@@ -433,11 +428,6 @@ QComboBox QAbstractItemView::item:selected
 
 </string>
       </property>
-      <item>
-       <property name="text">
-        <string>input</string>
-       </property>
-      </item>
       <item>
        <property name="text">
         <string>string</string>

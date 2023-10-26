@@ -36,7 +36,39 @@ class WindowController:
 
     def generate_text(self, data_dict: dict):
         try:
-            pass
+            codeset = data_dict['codeset']
+            key = data_dict['key']
+            text = data_dict['text']
+            mode = data_dict['mode']
+            encrypt_mode = data_dict['encrypt_mode']
+
+            if encrypt_mode == EncryptionWindow.NORMAL:
+                key_size = 16
+            elif encrypt_mode == EncryptionWindow.DOUBLE:
+                key_size = 32
+            elif encrypt_mode == EncryptionWindow.TROUPE:
+                key_size = 48
+
+            if codeset == "binary":
+                texts = []
+                for i in range(0, len(text), 8):
+                    texts.append(self.to_number(text[i:2*i]))
+                
+                if key == "":
+                    self.aes.generate_key(key_size)
+                else:
+                    self.aes.set_key(self.to_number(key))
+
+                res = None
+                if mode == EncryptionWindow.ENCRYPT:
+                    if encrypt_mode == EncryptionWindow.NORMAL:
+                        res = self.aes.group_encrypt(texts)
+                else:
+                    if encrypt_mode == EncryptionWindow.NORMAL:
+                        res = self.aes.group_decrypt(texts)
+
+                self.encryption_win.show_result(res)
+
         except Exception as e:
             error_warning("Some error happened, please enter again or restart the program !  ")
 
@@ -66,4 +98,11 @@ class WindowController:
                 res.append(str(x))
 
         return res
-        
+    
+    def to_number(self, binary_string):
+        num = 0
+
+        for number in binary_string:
+            num = num << 1 + number
+
+        return num
