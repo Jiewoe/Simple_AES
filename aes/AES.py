@@ -77,7 +77,17 @@ class AES:
         self.__generate_vector()
         self.__extend_keys()
 
-    def set_key(self, key):
+    def generate_key(self, bit_size: int):
+        """
+            bit_size: 初始密钥长度
+        """
+        self.keys[0] = 0
+        for i in range(bit_size):
+            self.keys[0] = self.keys[0] << 1 + round(random.random())
+        
+        self.__extend_keys()
+
+    def set_key(self, key: int):
         self.keys = []
         self.keys.append(key)
         self.__extend_keys()
@@ -126,6 +136,9 @@ class AES:
         return nibble_matrix_to_text16bit(nibbles)
 
     def string_encrypt(self, plain_text: str) -> str:
+        """
+            字符串加密
+        """
         text_vector = []
 
         for item in plain_text:
@@ -140,6 +153,9 @@ class AES:
         return cipher_text
 
     def string_decrypt(self, cipher_text: str) -> str:
+        """
+             字符串解密
+        """
         text_vector = []
 
         for item in cipher_text:
@@ -153,7 +169,18 @@ class AES:
 
         return plain_text
 
-    def group_encrypt(self, plain_nibbles_groups):
+    def group_encrypt(self, plain_nibbles_groups: list[int]) -> list[int]:
+        """
+            明文组加密（半字节组作为输入）
+
+            输入示例：
+
+                (1) plain_nibbles_groups = [0b11110000, ... ] (注意每个二进制形式的数都是8bit以内的)
+
+                (2) plain_nibbles_groups = [0x2A, 0xBC, ... ] (十六进制形式输入)
+
+                (3) plain_nibbles_groups = [123, 10, ... ] (十进制形式输入，数值在0-255)
+        """
         cipher_nibbles_groups = []
 
         initial = plain_nibbles_groups[0] ^ self.initial_vector
@@ -165,7 +192,18 @@ class AES:
 
         return cipher_nibbles_groups
 
-    def group_decrypt(self, cipher_nibbles_groups):
+    def group_decrypt(self, cipher_nibbles_groups: list[int]) -> list[int]:
+        """
+            密文组解密（半字节组作为输入）
+
+            输入示例：
+
+                (1) plain_nibbles_groups = [0b11110000, ... ] (注意每个二进制形式的数都是8bit以内的)
+
+                (2) plain_nibbles_groups = [0x2A, 0xBC, ... ] (十六进制形式输入)
+
+                (3) plain_nibbles_groups = [123, 10, ... ] (十进制形式输入，数值在0-255)
+        """
         plain_nibbles_groups = [0 for i in range(len(cipher_nibbles_groups))]
 
         for i in reversed(range(1, len(cipher_nibbles_groups))):
