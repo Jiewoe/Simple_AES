@@ -18,8 +18,6 @@ class EncryptionWindow(QMainWindow):
         self.ui = Ui_EncryptionWindow()
         self.ui.setupUi(self)
 
-        self.input_mode = "string"
-        self.encrypt_mode = "normal"
 
     def init(self) -> None:
         self.ui.generate_button.clicked.connect(self.generate)
@@ -77,8 +75,8 @@ class EncryptionWindow(QMainWindow):
             self.ui.key_input.setReadOnly(True)
 
     def plain_text_setting(self):
-        choose_mode = self.ui.choose_mode_group.checkedId()
-        if choose_mode == -3:
+        choose_mode = self.ui.input_mode.currentText()
+        if choose_mode == "binary":
             binary_validator = QtGui.QRegExpValidator(QtCore.QRegExp("[01]+"), self.ui.plain_text_input)
             self.ui.plain_text_input.setValidator(binary_validator)
         else:
@@ -109,24 +107,19 @@ class EncryptionWindow(QMainWindow):
         else:
             key = ""
 
-        choose_mode = self.ui.choose_mode_group.checkedId()
-        if choose_mode == -2:
-            mode = "unicode"
-        elif choose_mode == -3:
-            mode = "binary"
-        else:
-            error_warning("Please choose input model !  ")
-            return
+        encrypt_mode = self.ui.en_mode.currentText()
+        choose_mode = self.ui.input_mode.currentText()
         
-        if mode == "binary" and re.match(r'^[01]+$', text) is None:
+        if choose_mode == "binary" and re.match(r'^[01]+$', text) is None:
             error_warning("Encrypted text format has fault !  ")
             return
 
         data_dict = {
-            "codeset": mode,
+            "codeset": choose_mode,
             "key": key,
             "text": text,
-            "mode": self.mode
+            "mode": self.mode,
+            "encrypt_mode": encrypt_mode
         }
         self.generate_signal.emit(data_dict)
 
