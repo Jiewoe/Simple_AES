@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Jiewo\Folder\Done\2023_fall\intro_of_information_security\simple_des\Simple_DES\ui\crack.ui'
+# Form implementation generated from reading ui file 'd:\Jiewo\Folder\Done\2023_fall\intro_of_information_security\simple_aes\Simple_AES\ui\crack.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -14,21 +14,21 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_CrackWindow(object):
     def setupUi(self, CrackWindow):
         CrackWindow.setObjectName("CrackWindow")
-        CrackWindow.resize(800, 428)
+        CrackWindow.resize(1000, 600)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(CrackWindow.sizePolicy().hasHeightForWidth())
         CrackWindow.setSizePolicy(sizePolicy)
-        CrackWindow.setMinimumSize(QtCore.QSize(800, 428))
-        CrackWindow.setMaximumSize(QtCore.QSize(800, 428))
+        CrackWindow.setMinimumSize(QtCore.QSize(1000, 600))
+        CrackWindow.setMaximumSize(QtCore.QSize(1000, 600))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/icon/lock.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         CrackWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(CrackWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.main_frame = QtWidgets.QFrame(self.centralwidget)
-        self.main_frame.setGeometry(QtCore.QRect(0, 0, 821, 451))
+        self.main_frame.setGeometry(QtCore.QRect(0, 0, 1031, 621))
         self.main_frame.setAutoFillBackground(False)
         self.main_frame.setStyleSheet("QFrame {\n"
 "    background-color:rgb(255, 255, 255);\n"
@@ -44,7 +44,7 @@ class Ui_CrackWindow(object):
         self.main_frame.setLineWidth(1)
         self.main_frame.setObjectName("main_frame")
         self.content_frame = QtWidgets.QFrame(self.main_frame)
-        self.content_frame.setGeometry(QtCore.QRect(260, 30, 511, 371))
+        self.content_frame.setGeometry(QtCore.QRect(340, 40, 611, 531))
         self.content_frame.setStyleSheet("QLineEdit {\n"
 "    border-radius:10px;\n"
 "    background-color:rgb(240, 240, 240);\n"
@@ -66,7 +66,7 @@ class Ui_CrackWindow(object):
         self.content_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.content_frame.setObjectName("content_frame")
         self.plain_text_label = QtWidgets.QLabel(self.content_frame)
-        self.plain_text_label.setGeometry(QtCore.QRect(40, 20, 191, 41))
+        self.plain_text_label.setGeometry(QtCore.QRect(50, 60, 171, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -75,7 +75,7 @@ class Ui_CrackWindow(object):
         self.plain_text_label.setFont(font)
         self.plain_text_label.setObjectName("plain_text_label")
         self.encrypted_text_label = QtWidgets.QLabel(self.content_frame)
-        self.encrypted_text_label.setGeometry(QtCore.QRect(40, 80, 181, 41))
+        self.encrypted_text_label.setGeometry(QtCore.QRect(50, 140, 181, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -84,7 +84,7 @@ class Ui_CrackWindow(object):
         self.encrypted_text_label.setFont(font)
         self.encrypted_text_label.setObjectName("encrypted_text_label")
         self.crack_button = QtWidgets.QPushButton(self.content_frame)
-        self.crack_button.setGeometry(QtCore.QRect(130, 290, 181, 41))
+        self.crack_button.setGeometry(QtCore.QRect(200, 450, 211, 51))
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(14)
@@ -106,10 +106,10 @@ class Ui_CrackWindow(object):
 "")
         self.crack_button.setObjectName("crack_button")
         self.plain_text_input = QtWidgets.QLineEdit(self.content_frame)
-        self.plain_text_input.setGeometry(QtCore.QRect(240, 20, 241, 41))
+        self.plain_text_input.setGeometry(QtCore.QRect(240, 40, 331, 61))
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
-        font.setPointSize(11)
+        font.setPointSize(12)
         self.plain_text_input.setFont(font)
         self.plain_text_input.setStyleSheet("")
         self.plain_text_input.setText("")
@@ -117,7 +117,7 @@ class Ui_CrackWindow(object):
         self.plain_text_input.setClearButtonEnabled(False)
         self.plain_text_input.setObjectName("plain_text_input")
         self.char_button = QtWidgets.QRadioButton(self.content_frame)
-        self.char_button.setGeometry(QtCore.QRect(40, 180, 171, 31))
+        self.char_button.setGeometry(QtCore.QRect(50, 280, 171, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -129,7 +129,7 @@ class Ui_CrackWindow(object):
         self.choose_mode_group.setObjectName("choose_mode_group")
         self.choose_mode_group.addButton(self.char_button)
         self.binary_button = QtWidgets.QRadioButton(self.content_frame)
-        self.binary_button.setGeometry(QtCore.QRect(40, 220, 181, 31))
+        self.binary_button.setGeometry(QtCore.QRect(50, 330, 181, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -139,7 +139,7 @@ class Ui_CrackWindow(object):
         self.binary_button.setObjectName("binary_button")
         self.choose_mode_group.addButton(self.binary_button)
         self.crack_result = QtWidgets.QLabel(self.content_frame)
-        self.crack_result.setGeometry(QtCore.QRect(40, 130, 191, 41))
+        self.crack_result.setGeometry(QtCore.QRect(50, 230, 181, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -148,10 +148,10 @@ class Ui_CrackWindow(object):
         self.crack_result.setFont(font)
         self.crack_result.setObjectName("crack_result")
         self.key_result = QtWidgets.QTextEdit(self.content_frame)
-        self.key_result.setGeometry(QtCore.QRect(240, 140, 241, 111))
+        self.key_result.setGeometry(QtCore.QRect(240, 220, 331, 191))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(11)
+        font.setPointSize(12)
         self.key_result.setFont(font)
         self.key_result.setStyleSheet("QTextEdit {\n"
 "    background-color:rgb(240, 240, 240);\n"
@@ -161,10 +161,10 @@ class Ui_CrackWindow(object):
         self.key_result.setReadOnly(False)
         self.key_result.setObjectName("key_result")
         self.encrypted_text_input = QtWidgets.QLineEdit(self.content_frame)
-        self.encrypted_text_input.setGeometry(QtCore.QRect(240, 80, 241, 41))
+        self.encrypted_text_input.setGeometry(QtCore.QRect(240, 130, 331, 61))
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
-        font.setPointSize(11)
+        font.setPointSize(12)
         self.encrypted_text_input.setFont(font)
         self.encrypted_text_input.setStyleSheet("")
         self.encrypted_text_input.setText("")
@@ -172,7 +172,7 @@ class Ui_CrackWindow(object):
         self.encrypted_text_input.setClearButtonEnabled(False)
         self.encrypted_text_input.setObjectName("encrypted_text_input")
         self.menu_frame = QtWidgets.QFrame(self.main_frame)
-        self.menu_frame.setGeometry(QtCore.QRect(30, 30, 211, 371))
+        self.menu_frame.setGeometry(QtCore.QRect(50, 40, 251, 531))
         self.menu_frame.setStyleSheet("QPushButton {\n"
 "    border-radius:10px;\n"
 "    background-color:rgb(255, 255, 255);\n"
@@ -187,7 +187,7 @@ class Ui_CrackWindow(object):
         self.menu_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.menu_frame.setObjectName("menu_frame")
         self.decryption_button = QtWidgets.QPushButton(self.menu_frame)
-        self.decryption_button.setGeometry(QtCore.QRect(20, 90, 171, 51))
+        self.decryption_button.setGeometry(QtCore.QRect(30, 110, 191, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -207,7 +207,7 @@ class Ui_CrackWindow(object):
         self.decryption_button.setIcon(icon1)
         self.decryption_button.setObjectName("decryption_button")
         self.encryption_button = QtWidgets.QPushButton(self.menu_frame)
-        self.encryption_button.setGeometry(QtCore.QRect(18, 20, 171, 51))
+        self.encryption_button.setGeometry(QtCore.QRect(30, 30, 191, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -227,7 +227,7 @@ class Ui_CrackWindow(object):
         self.encryption_button.setIcon(icon2)
         self.encryption_button.setObjectName("encryption_button")
         self.crack_button_2 = QtWidgets.QPushButton(self.menu_frame)
-        self.crack_button_2.setGeometry(QtCore.QRect(20, 160, 171, 51))
+        self.crack_button_2.setGeometry(QtCore.QRect(30, 190, 191, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -258,9 +258,9 @@ class Ui_CrackWindow(object):
         self.key_result.setHtml(_translate("CrackWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Arial\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;\"><br /></p></body></html>"))
         self.decryption_button.setText(_translate("CrackWindow", "  Decryption"))
         self.encryption_button.setText(_translate("CrackWindow", "  Encryption"))
         self.crack_button_2.setText(_translate("CrackWindow", "Crack"))
-import ui.src.res_rc
+from ui.src import res_rc

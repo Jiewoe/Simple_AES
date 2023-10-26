@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>428</height>
+    <width>1000</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>800</width>
-    <height>428</height>
+    <width>1000</width>
+    <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>800</width>
-    <height>428</height>
+    <width>1000</width>
+    <height>600</height>
    </size>
   </property>
   <property name="cursor">
@@ -56,8 +56,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>821</width>
-      <height>451</height>
+      <width>1011</width>
+      <height>611</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -86,10 +86,10 @@ QPushButton {
     <widget class="QFrame" name="content_frame">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>30</y>
-       <width>501</width>
-       <height>371</height>
+       <x>320</x>
+       <y>40</y>
+       <width>641</width>
+       <height>531</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -120,16 +120,16 @@ QPushButton:hover {
      <widget class="QLineEdit" name="plain_text_input">
       <property name="geometry">
        <rect>
-        <x>230</x>
-        <y>30</y>
-        <width>241</width>
-        <height>41</height>
+        <x>220</x>
+        <y>40</y>
+        <width>371</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Segoe UI</family>
-        <pointsize>11</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -137,47 +137,13 @@ QPushButton:hover {
       </property>
       <property name="text">
        <string/>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="key_input">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>90</y>
-        <width>241</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Segoe UI</family>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="inputMask">
-       <string/>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="dragEnabled">
-       <bool>false</bool>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="set_key_check">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>90</y>
+        <x>50</x>
+        <y>130</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -197,8 +163,8 @@ QPushButton:hover {
      <widget class="QLabel" name="encrpyt_text_label">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>150</y>
+        <x>50</x>
+        <y>230</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -218,8 +184,8 @@ QPushButton:hover {
      <widget class="QLabel" name="plain_text_label">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>30</y>
+        <x>50</x>
+        <y>50</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -239,10 +205,10 @@ QPushButton:hover {
      <widget class="QPushButton" name="generate_button">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>310</y>
-        <width>181</width>
-        <height>41</height>
+        <x>230</x>
+        <y>450</y>
+        <width>201</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
@@ -276,67 +242,19 @@ QPushButton::pressed {
        <string>Generate</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="char_button">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>240</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>12</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>string</string>
-      </property>
-      <attribute name="buttonGroup">
-       <string notr="true">choose_mode_group</string>
-      </attribute>
-     </widget>
-     <widget class="QRadioButton" name="binary_button">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>200</y>
-        <width>151</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>12</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>binary</string>
-      </property>
-      <attribute name="buttonGroup">
-       <string notr="true">choose_mode_group</string>
-      </attribute>
-     </widget>
      <widget class="QTextEdit" name="encrypted_text_input">
       <property name="geometry">
        <rect>
-        <x>230</x>
-        <y>150</y>
-        <width>241</width>
+        <x>220</x>
+        <y>230</y>
+        <width>371</width>
         <height>131</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>11</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -357,14 +275,209 @@ QTextEdit QScrollBar::handle:vertical {
        <bool>true</bool>
       </property>
      </widget>
+     <widget class="QTextEdit" name="key_input">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>120</y>
+        <width>371</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTextEdit {
+	background-color:rgb(240, 240, 240);
+	border:none;
+	border-radius:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+QTextEdit QScrollBar::handle:vertical {
+	background-color:rgb(170, 170, 255);
+	border-radius:5px
+}</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="en_mode">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>380</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox{
+	border:1px solid #242424;
+	border-radius:3px;
+	padding:2px;
+	background:none;
+	border-color: rgb(22,63,23);
+	background-color: rgb(255, 255, 255);
+	selection-background-color:#484848;
+	selection-color:#DCDCDC;
+}
+ 
+ 
+QComboBox::down-arrow{
+	image: url(:/icons/icon/down-arrow.png);
+	width:20px;
+	height:25px;
+	right:0px;
+}
+ 
+QComboBox::drop-down{
+	subcontrol-origin:padding;
+	subcontrol-position:top right;
+	width:20px;
+	border-left-width:0px;
+	border-left-style:solid;
+}
+ 
+QComboBox::drop-down:on{
+	top:1px;
+}
+QComboBox QAbstractItemView::item{
+	min-height:24px;
+	min-width:20px;
+	color: rgb(239, 239, 239);
+}
+QComboBox QAbstractItemView::item:selected
+{	
+    background-color: rgb(170, 170, 255);
+}
+
+</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>mode</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>normal encryption</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>double encryption</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>triple encryption</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="input_mode">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>380</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox{
+	border:1px solid #242424;
+	border-radius:3px;
+	padding:2px;
+	background:none;
+	border-color: rgb(22,63,23);
+	background-color: rgb(255, 255, 255);
+	selection-background-color:#484848;
+	selection-color:#DCDCDC;
+}
+ 
+ 
+QComboBox::down-arrow{
+	image: url(:/icons/icon/down-arrow.png);
+	width:20px;
+	height:25px;
+	right:0px;
+}
+ 
+QComboBox::drop-down{
+	subcontrol-origin:padding;
+	subcontrol-position:top right;
+	width:20px;
+	border-left-width:0px;
+	border-left-style:solid;
+}
+ 
+QComboBox::drop-down:on{
+	top:1px;
+}
+QComboBox QAbstractItemView::item{
+	min-height:24px;
+	min-width:20px;
+	color: rgb(239, 239, 239);
+}
+QComboBox QAbstractItemView::item:selected
+{	
+    background-color: rgb(170, 170, 255);
+}
+
+</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>input</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>string</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>binary</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="encrpyt_text_label_2">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>370</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>settings</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QFrame" name="menu_frame">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>30</y>
-       <width>211</width>
-       <height>371</height>
+       <y>40</y>
+       <width>251</width>
+       <height>531</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -389,9 +502,9 @@ QFrame {
      <widget class="QPushButton" name="decryption_button">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>90</y>
-        <width>171</width>
+        <x>30</x>
+        <y>110</y>
+        <width>191</width>
         <height>51</height>
        </rect>
       </property>
@@ -426,9 +539,9 @@ QPushButton::pressed {
      <widget class="QPushButton" name="encryption_button">
       <property name="geometry">
        <rect>
-        <x>18</x>
-        <y>20</y>
-        <width>171</width>
+        <x>30</x>
+        <y>30</y>
+        <width>191</width>
         <height>51</height>
        </rect>
       </property>
@@ -461,9 +574,9 @@ color:white;</string>
      <widget class="QPushButton" name="crack_button">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>160</y>
-        <width>171</width>
+        <x>30</x>
+        <y>190</y>
+        <width>191</width>
         <height>51</height>
        </rect>
       </property>
@@ -495,6 +608,46 @@ QPushButton::pressed {
         <normaloff>:/icons/icon/spider.png</normaloff>:/icons/icon/spider.png</iconset>
       </property>
      </widget>
+     <widget class="QPushButton" name="get_info_button">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>440</y>
+        <width>191</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color:white;
+	background-color:rgb(119, 0, 255);
+	border-radius:18px;
+}
+
+QPushButton::pressed {
+	background-color:rgb(170, 170, 255);
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Encryption Info</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -503,7 +656,4 @@ QPushButton::pressed {
   <include location="res.qrc"/>
  </resources>
  <connections/>
- <buttongroups>
-  <buttongroup name="choose_mode_group"/>
- </buttongroups>
 </ui>

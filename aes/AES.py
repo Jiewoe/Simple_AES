@@ -77,6 +77,14 @@ class AES:
         self.__generate_vector()
         self.__extend_keys()
 
+    def set_key(self, key):
+        self.keys = []
+        self.keys.append(key)
+        self.__extend_keys()
+
+    def set_initial_vector(self, vector):
+        self.initial_vector = vector
+
     def encrypt(self, bit_16_text) -> int:
         """
             加密程序
@@ -151,14 +159,14 @@ class AES:
         initial = plain_nibbles_groups[0] ^ self.initial_vector
         cipher_nibbles_groups.append(self.encrypt(initial))
 
-        for i in range(1, len(self.plain_nibbles_groups)):
-            temp = self.cipher_nibbles_groups[i-1] ^ self.plain_nibbles_groups[i]
+        for i in range(1, len(plain_nibbles_groups)):
+            temp = cipher_nibbles_groups[i-1] ^ plain_nibbles_groups[i]
             cipher_nibbles_groups.append(self.encrypt(temp))
 
         return cipher_nibbles_groups
 
     def group_decrypt(self, cipher_nibbles_groups):
-        plain_nibbles_groups = [0 for i in range(16)]
+        plain_nibbles_groups = [0 for i in range(len(cipher_nibbles_groups))]
 
         for i in reversed(range(1, len(cipher_nibbles_groups))):
             temp = self.decrypt(cipher_nibbles_groups[i])

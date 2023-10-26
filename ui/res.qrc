@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icon/down-arrow.png</file>
     <file>icon/spider.png</file>
     <file>icon/lock.png</file>
     <file>icon/close-button.png</file>

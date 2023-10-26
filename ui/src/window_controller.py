@@ -1,16 +1,15 @@
 from ui.src.crack_window import CrackWindow
 from ui.src.encryption_window import EncryptionWindow
 from ui.src.window_utils import error_warning
-from encryption.encrypt import Encryptor
-from decryption.decrypt import CrackThread
+from aes.AES import AES
 
 
 class WindowController:
     def __init__(self) -> None:
-        self.encryptor = Encryptor()
+        self.aes = AES()
         self.crack_win = CrackWindow()
         self.encryption_win = EncryptionWindow()
-        self.crack_thread = CrackThread()
+        # self.crack_thread = CrackThread()
         
         self.crack_win.hide()
         self.encryption_win.show()
@@ -18,7 +17,7 @@ class WindowController:
     def init(self):
         self.crack_win.init()
         self.encryption_win.init()
-        self.encryptor.init()
+        self.aes.init()
 
         self.crack_win.change_window_signal.connect(self.show_encryption_window)
         self.encryption_win.change_window_signal.connect(self.show_crack_window)
@@ -37,26 +36,7 @@ class WindowController:
 
     def generate_text(self, data_dict: dict):
         try:
-            if data_dict["key"] != "":
-                self.encryptor.key_init([int(x) for x in data_dict["key"]])
-
-            if data_dict["mode"] == EncryptionWindow.ENCRYPT:
-                if data_dict["codeset"] == "binary":
-                    text = self.encryptor.encrypt_binary([int(x) for x in data_dict["text"]], is_decrypt=False)
-                    text = self.to_string(text)
-                else:
-                    text = self.encryptor.encrypt_string(data_dict["text"], is_decrypt=False)
-            else:
-                if data_dict["codeset"] == "binary":
-                    text = self.encryptor.encrypt_binary([int(x) for x in data_dict["text"]], is_decrypt=True)
-                    text = self.to_string(text)
-                else:
-                    text = self.encryptor.encrypt_string(data_dict["text"], is_decrypt=True)
-
-            text = ''.join(text)
-            if data_dict["key"] == "":
-                text = 'encryption text: \n' + ''.join(map(str, text)) + '\n\n' + 'encryption key: \n' + ''.join(map(str, self.encryptor.get_key()))
-            self.encryption_win.show_result(text)
+            pass
         except Exception as e:
             error_warning("Some error happened, please enter again or restart the program !  ")
 

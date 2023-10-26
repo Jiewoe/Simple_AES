@@ -18,16 +18,19 @@ class EncryptionWindow(QMainWindow):
         self.ui = Ui_EncryptionWindow()
         self.ui.setupUi(self)
 
+        self.input_mode = "string"
+        self.encrypt_mode = "normal"
+
     def init(self) -> None:
         self.ui.generate_button.clicked.connect(self.generate)
         self.ui.crack_button.clicked.connect(self.change_window)
         self.ui.set_key_check.toggled.connect(self.set_key_setting)
-        self.ui.char_button.toggled.connect(self.plain_text_setting)
+        # self.ui.char_button.toggled.connect(self.plain_text_setting)
         self.ui.encryption_button.clicked.connect(self.change_encrypt_mode)
         self.ui.decryption_button.clicked.connect(self.change_decrypt_mode)
 
-        key_validator = QtGui.QRegExpValidator(QtCore.QRegExp("[01]{10,10}"), self.ui.key_input)
-        self.ui.key_input.setValidator(key_validator)
+        # key_validator = QtGui.QRegExpValidator(QtCore.QRegExp("[01]{10,10}"), self.ui.key_input)
+        # self.ui.key_input.setValidator(key_validator)
 
         self.window_mode_init(self.ENCRYPT)
 
