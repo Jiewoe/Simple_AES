@@ -26,8 +26,3 @@ sys.exit(app.exec_())
 # group3 = ase.string_decrypt(group2)
 # print(group2)
 # print(group3)
-
-# print(e)
-# print(d)
-# print(0x45C1)
-# print(0x09DB)
