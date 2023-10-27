@@ -10,11 +10,14 @@ con.init()
 
 sys.exit(app.exec_())
 
-# ase = AES()
+# aes = AES()
 # ase.init()
-# e = ase.encrypt(0x45C1)
-# d = ase.decrypt(e)
+# aes.set_key(0b0000000011111111)
 
+# e = aes.encrypt(0b1111111111111111)
+# print(bin(e))
+# d = aes.decrypt(e)
+# print()
 # group1 = ase.group_encrypt([0x1212, 0x3454])
 # group1 = ase.group_decrypt(group1)
 # print(group1)

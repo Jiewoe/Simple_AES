@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Simple-DES</string>
+   <string>Simple-AES</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
@@ -94,6 +94,15 @@ QPushButton:hover {
 
 QFrame {
 	border-radius:20px;
+}
+
+
+QTextEdit:focus {
+    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */
+}
+
+QLineEdit:focus {
+    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */
 }</string>
      </property>
      <property name="frameShape">
@@ -301,6 +310,10 @@ QPushButton::pressed {
 	background-color:rgb(240, 240, 240);
 	border-radius:10px;
 	border:none;
+}
+
+QTextEdit:focus {
+    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */
 }</string>
       </property>
       <property name="readOnly">

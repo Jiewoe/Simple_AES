@@ -21,13 +21,13 @@ def text16bit_to_nibble_matrix(bit_16):
         将16位数据划分为半字节矩阵
     """
     return [
-        [(bit_16&cut[0][0]) >> cut[0][1], (bit_16&cut[1][0]) >> cut[1][1]],
-        [(bit_16&cut[2][0]) >> cut[2][1], (bit_16&cut[3][0]) >> cut[3][1]]
+        [(bit_16&cut[0][0]) >> cut[0][1], (bit_16&cut[2][0]) >> cut[2][1]],
+        [(bit_16&cut[1][0]) >> cut[1][1], (bit_16&cut[3][0]) >> cut[3][1]]
     ]
 
 def nibble_matrix_to_text16bit(matrix) -> int:
-    return ((matrix[0][0]) << cut[0][1]) + ((matrix[0][1]) << cut[1][1]) + \
-           ((matrix[1][0]) << cut[2][1]) + ((matrix[1][1]) << cut[3][1])
+    return ((matrix[0][0]) << cut[0][1]) + ((matrix[0][1]) << cut[2][1]) + \
+           ((matrix[1][0]) << cut[1][1]) + ((matrix[1][1]) << cut[3][1])
 
 def get_bit_vector(num, bit_width) -> list:
     vector = []

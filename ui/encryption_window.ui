@@ -100,6 +100,12 @@ QPushButton {
 	padding-right:10px;
 }
 
+QLineEdit:focus {
+    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */
+}
+
+
+
 QPushButton:hover {
 	background-color:rgb(240, 240, 240);
 }
@@ -265,11 +271,15 @@ QPushButton::pressed {
 	padding-left:10px;
 	padding-right:10px;
 }
+QTextEdit:focus {
+    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */
+}
 
 QTextEdit QScrollBar::handle:vertical {
 	background-color:rgb(170, 170, 255);
 	border-radius:5px
-}</string>
+}
+</string>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -298,6 +308,11 @@ QTextEdit QScrollBar::handle:vertical {
 	padding-left:10px;
 	padding-right:10px;
 }
+
+QTextEdit:focus {
+    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */
+}
+
 
 QTextEdit QScrollBar::handle:vertical {
 	background-color:rgb(170, 170, 255);
@@ -483,6 +498,10 @@ QComboBox QAbstractItemView::item:selected
 	padding-left:10px;
 	padding-right:10px;
 }
+QTextEdit:focus {
+    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */
+}
+
 
 QTextEdit QScrollBar::handle:vertical {
 	background-color:rgb(170, 170, 255);

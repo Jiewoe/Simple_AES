@@ -61,6 +61,15 @@ class Ui_CrackWindow(object):
 "\n"
 "QFrame {\n"
 "    border-radius:20px;\n"
+"}\n"
+"\n"
+"\n"
+"QTextEdit:focus {\n"
+"    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */\n"
 "}")
         self.content_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.content_frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -157,6 +166,10 @@ class Ui_CrackWindow(object):
 "    background-color:rgb(240, 240, 240);\n"
 "    border-radius:10px;\n"
 "    border:none;\n"
+"}\n"
+"\n"
+"QTextEdit:focus {\n"
+"    border: 2px solid rgb(170, 170, 255); /* 获取焦点时的边框样式 */\n"
 "}")
         self.key_result.setReadOnly(False)
         self.key_result.setObjectName("key_result")
@@ -248,7 +261,7 @@ class Ui_CrackWindow(object):
 
     def retranslateUi(self, CrackWindow):
         _translate = QtCore.QCoreApplication.translate
-        CrackWindow.setWindowTitle(_translate("CrackWindow", "Simple-DES"))
+        CrackWindow.setWindowTitle(_translate("CrackWindow", "Simple-AES"))
         self.plain_text_label.setText(_translate("CrackWindow", "Plain Text"))
         self.encrypted_text_label.setText(_translate("CrackWindow", "Encrypted Text"))
         self.crack_button.setText(_translate("CrackWindow", "Crack"))
