@@ -32,7 +32,7 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>Simple-DES</string>
+   <string>Simple-AES</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
@@ -143,7 +143,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>130</y>
+        <y>110</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -164,7 +164,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>230</y>
+        <y>250</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -246,9 +246,9 @@ QPushButton::pressed {
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>230</y>
+        <y>250</y>
         <width>371</width>
-        <height>131</height>
+        <height>111</height>
        </rect>
       </property>
       <property name="font">
@@ -279,9 +279,9 @@ QTextEdit QScrollBar::handle:vertical {
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>120</y>
+        <y>110</y>
         <width>371</width>
-        <height>91</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
@@ -458,6 +458,60 @@ QComboBox QAbstractItemView::item:selected
       </property>
       <property name="text">
        <string>settings</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="vector_input">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>180</y>
+        <width>371</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTextEdit {
+	background-color:rgb(240, 240, 240);
+	border:none;
+	border-radius:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+QTextEdit QScrollBar::handle:vertical {
+	background-color:rgb(170, 170, 255);
+	border-radius:5px
+}</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="set_vector_check">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>180</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Initial Vector</string>
       </property>
      </widget>
     </widget>

@@ -47,7 +47,6 @@ class AES:
     """
         所有半字节、字节都是以整数(0~15 or 0~255)或二进制数(0b0010...)形式存储
     """
-
     def __init__(self) -> None:
         self.rounds = 2
         self.plain_text = ""
@@ -74,7 +73,7 @@ class AES:
         self.initial_vector = None
 
     def init(self):
-        self.__generate_vector()
+        self.generate_vector()
         self.__extend_keys()
 
     def generate_key(self, bit_size: int):
@@ -169,51 +168,51 @@ class AES:
 
         return plain_text
 
-    def group_encrypt(self, plain_nibbles_groups: list[int]) -> list[int]:
+    def group_encrypt(self, plain_16bit_groups: list[int]) -> list[int]:
         """
-            明文组加密（半字节组作为输入）
+            明文组加密（单个明文是16bit）
 
             输入示例：
 
-                (1) plain_nibbles_groups = [0b11110000, ... ] (注意每个二进制形式的数都是8bit以内的)
+                (1) plain_16bit_groups = [0b1111000011110000, ... ] (注意每个二进制形式的数都是16bit以内的)
 
-                (2) plain_nibbles_groups = [0x2A, 0xBC, ... ] (十六进制形式输入)
+                (2) plain_16bit_groups = [0x11AB, 0xCAAA, ... ] (十六进制形式输入)
 
-                (3) plain_nibbles_groups = [123, 10, ... ] (十进制形式输入，数值在0-255)
+                (3) plain_16bit_groups = [150, 865, ... ] (十进制形式输入，数值在0-2^16-1)
         """
-        cipher_nibbles_groups = []
+        cipher_16bit_groups = []
 
-        initial = plain_nibbles_groups[0] ^ self.initial_vector
-        cipher_nibbles_groups.append(self.encrypt(initial))
+        initial = plain_16bit_groups[0] ^ self.initial_vector
+        cipher_16bit_groups.append(self.encrypt(initial))
 
-        for i in range(1, len(plain_nibbles_groups)):
-            temp = cipher_nibbles_groups[i-1] ^ plain_nibbles_groups[i]
-            cipher_nibbles_groups.append(self.encrypt(temp))
+        for i in range(1, len(plain_16bit_groups)):
+            temp = cipher_16bit_groups[i-1] ^ plain_16bit_groups[i]
+            cipher_16bit_groups.append(self.encrypt(temp))
 
-        return cipher_nibbles_groups
+        return cipher_16bit_groups
 
-    def group_decrypt(self, cipher_nibbles_groups: list[int]) -> list[int]:
+    def group_decrypt(self, cipher_16bit_groups: list[int]) -> list[int]:
         """
-            密文组解密（半字节组作为输入）
+            密文组加密（单个密文是16bit）
 
             输入示例：
 
-                (1) plain_nibbles_groups = [0b11110000, ... ] (注意每个二进制形式的数都是8bit以内的)
+                (1) cipher_16bit_groups = [0b1111000011110000, ... ] (注意每个二进制形式的数都是16bit以内的)
 
-                (2) plain_nibbles_groups = [0x2A, 0xBC, ... ] (十六进制形式输入)
+                (2) cipher_16bit_groups = [0x11AB, 0xCAAA, ... ] (十六进制形式输入)
 
-                (3) plain_nibbles_groups = [123, 10, ... ] (十进制形式输入，数值在0-255)
+                (3) cipher_16bit_groups = [150, 865, ... ] (十进制形式输入，数值在0-2^16-1)
         """
-        plain_nibbles_groups = [0 for i in range(len(cipher_nibbles_groups))]
+        plain_16bit_groups = [0 for i in range(len(cipher_16bit_groups))]
 
-        for i in reversed(range(1, len(cipher_nibbles_groups))):
-            temp = self.decrypt(cipher_nibbles_groups[i])
-            plain_nibbles_groups[i] = temp ^ cipher_nibbles_groups[i-1]
+        for i in reversed(range(1, len(cipher_16bit_groups))):
+            temp = self.decrypt(cipher_16bit_groups[i])
+            plain_16bit_groups[i] = temp ^ cipher_16bit_groups[i-1]
 
-        first = self.decrypt(cipher_nibbles_groups[0])
-        plain_nibbles_groups[0] = first ^ self.initial_vector
+        first = self.decrypt(cipher_16bit_groups[0])
+        plain_16bit_groups[0] = first ^ self.initial_vector
         
-        return plain_nibbles_groups
+        return plain_16bit_groups
 
     def __add_key(self, matrix, i) -> list[list[int]]:
         """
@@ -285,7 +284,7 @@ class AES:
 
             self.keys.append((w_0 << 8) + w_1)
 
-    def __generate_vector(self):
+    def generate_vector(self):
         bit_size = 16
         self.initial_vector = 0
         

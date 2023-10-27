@@ -1,5 +1,5 @@
 import re
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QTextEdit, QLineEdit
 from PyQt5.QtCore import pyqtSignal
 from ui.src.Ui_encryption_window import *
 from ui.src.window_utils import error_warning
@@ -18,6 +18,7 @@ class EncryptionWindow(QMainWindow):
 
     def __init__(self) -> None:
         self.mode = self.ENCRYPT
+        self.input_mode = "string"
         super().__init__()
         self.ui = Ui_EncryptionWindow()
         self.ui.setupUi(self)
@@ -30,26 +31,41 @@ class EncryptionWindow(QMainWindow):
         self.ui.encryption_button.clicked.connect(self.change_encrypt_mode)
         self.ui.decryption_button.clicked.connect(self.change_decrypt_mode)
         self.ui.key_input.textChanged.connect(self.format_text)
-
-        # key_validator = QtGui.QRegExpValidator(QtCore.QRegExp("[01]{10,10}"), self.ui.key_input)
-        # self.ui.key_input.setValidator(key_validator)
+        self.ui.vector_input.textChanged.connect(self.format_text)
+        self.ui.plain_text_input.textChanged.connect(self.format_text)
+        self.ui.input_mode.currentIndexChanged.connect(self.input_mode_setting)
+        self.ui.vector_input.setReadOnly(True)
+        self.ui.set_vector_check.toggled.connect(self.set_vector_setting)
 
         self.window_mode_init(self.ENCRYPT)
 
+    def input_mode_setting(self):
+        self.input_mode = self.ui.input_mode.currentText()
+
     def format_text(self):
-        text = self.ui.key_input.toPlainText()
+        wdg = self.sender()
+        if isinstance(wdg ,QTextEdit):
+            text = wdg.toPlainText()
+        elif isinstance(wdg ,QLineEdit):
+            if (self.input_mode == "string"):
+                return 
+            text = wdg.text()
+
         if (text == ""):
             return 
         
-        cursor_position = self.ui.key_input.textCursor().position()
         num = text.replace(" ", "")
         if (len(num)%4 == 0 and text[-1]!=" "):
             text += " "
-            self.ui.key_input.setText(text)
+            wdg.setText(text)
 
-            cursor = self.ui.key_input.textCursor()
-            cursor.setPosition(cursor_position+1)
-            self.ui.key_input.setTextCursor(cursor)
+            if isinstance(wdg ,QLineEdit):
+                wdg.setCursorPosition(len(text))
+            elif isinstance(wdg ,QTextEdit):
+                text_cursor = wdg.textCursor()
+                text_cursor.setPosition(len(text))
+
+                wdg.setTextCursor(text_cursor)
 
     def window_mode_init(self, mode: str):
         if self.mode == mode:
@@ -92,6 +108,12 @@ class EncryptionWindow(QMainWindow):
             self.ui.key_input.setReadOnly(False)
         else:
             self.ui.key_input.setReadOnly(True)
+
+    def set_vector_setting(self):
+        if self.ui.set_vector_check.isChecked():
+            self.ui.vector_input.setReadOnly(False)
+        else:
+            self.ui.vector_input.setReadOnly(True)
             
     def plain_text_setting(self):
         choose_mode = self.ui.input_mode.currentText()
@@ -102,13 +124,16 @@ class EncryptionWindow(QMainWindow):
             self.ui.plain_text_input.setValidator(None)
 
     def generate(self) -> None:
+        encrypt_mode = self.ui.en_mode.currentText()
+        choose_mode = self.ui.input_mode.currentText()
+
         if self.mode == self.ENCRYPT:
             text = self.ui.plain_text_input.text()
         else:
             text = self.ui.encrypted_text_input.toPlainText()
 
-        encrypt_mode = self.ui.en_mode.currentText()
-        choose_mode = self.ui.input_mode.currentText()
+        if choose_mode == "binary":
+            text = text.replace(" ", "")
 
         if text == "":
             if self.mode == self.ENCRYPT:
@@ -126,29 +151,37 @@ class EncryptionWindow(QMainWindow):
         if self.ui.set_key_check.isChecked():
             key = self.ui.key_input.toPlainText().replace(" ", "")
             if key == "":
-                error_warning("Please set encryption key !  ")
-                return
+                error_warning("Please set Encryption key !  ")
+                return 
             elif re.match(r'^[01]+$', key) is None:
                 error_warning("Encryption key has fault !  ")
-                return
+                return 
             elif encrypt_mode==self.NORMAL and len(key) != 16:
                 error_warning("Encryption key need 16bit !  ")
-                return
+                return 
             elif encrypt_mode==self.DOUBLE and len(key)!=32:
                 error_warning("Encryption key need 32bit !  ")
-                return
+                return 
             elif encrypt_mode==self.TROUPE and len(key)!=48:
                 error_warning("Encryption key need 48bit !  ")
-                return
+                return 
         else:
             key = ""
+
+        if self.ui.set_vector_check.isChecked():
+            vector = self.ui.vector_input.toPlainText().replace(" ", "")
+            if re.match(r'^[01]+$', vector) is None or len(vector)!=16:
+                error_warning("Initial vector need 16bit binary string !  ")
+        else:
+            vector = ""
 
         data_dict = {
             "codeset": choose_mode,
             "key": key,
             "text": text,
             "mode": self.mode,
-            "encrypt_mode": encrypt_mode
+            "encrypt_mode": encrypt_mode,
+            "vector": vector
         }
         self.generate_signal.emit(data_dict)
 
@@ -160,3 +193,4 @@ class EncryptionWindow(QMainWindow):
             self.ui.encrypted_text_input.setText(text)
         else:
             self.ui.plain_text_input.setText(text)
+

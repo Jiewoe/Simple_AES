@@ -79,7 +79,7 @@ class Ui_EncryptionWindow(object):
         self.plain_text_input.setText("")
         self.plain_text_input.setObjectName("plain_text_input")
         self.set_key_check = QtWidgets.QCheckBox(self.content_frame)
-        self.set_key_check.setGeometry(QtCore.QRect(50, 130, 161, 41))
+        self.set_key_check.setGeometry(QtCore.QRect(50, 110, 161, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -88,7 +88,7 @@ class Ui_EncryptionWindow(object):
         self.set_key_check.setFont(font)
         self.set_key_check.setObjectName("set_key_check")
         self.encrpyt_text_label = QtWidgets.QLabel(self.content_frame)
-        self.encrpyt_text_label.setGeometry(QtCore.QRect(50, 230, 161, 41))
+        self.encrpyt_text_label.setGeometry(QtCore.QRect(50, 250, 161, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -128,7 +128,7 @@ class Ui_EncryptionWindow(object):
 "")
         self.generate_button.setObjectName("generate_button")
         self.encrypted_text_input = QtWidgets.QTextEdit(self.content_frame)
-        self.encrypted_text_input.setGeometry(QtCore.QRect(220, 230, 371, 131))
+        self.encrypted_text_input.setGeometry(QtCore.QRect(220, 250, 371, 111))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -148,7 +148,7 @@ class Ui_EncryptionWindow(object):
         self.encrypted_text_input.setReadOnly(True)
         self.encrypted_text_input.setObjectName("encrypted_text_input")
         self.key_input = QtWidgets.QTextEdit(self.content_frame)
-        self.key_input.setGeometry(QtCore.QRect(220, 120, 371, 91))
+        self.key_input.setGeometry(QtCore.QRect(220, 110, 371, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -269,6 +269,35 @@ class Ui_EncryptionWindow(object):
         font.setWeight(50)
         self.encrpyt_text_label_2.setFont(font)
         self.encrpyt_text_label_2.setObjectName("encrpyt_text_label_2")
+        self.vector_input = QtWidgets.QTextEdit(self.content_frame)
+        self.vector_input.setGeometry(QtCore.QRect(220, 180, 371, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        self.vector_input.setFont(font)
+        self.vector_input.setStyleSheet("QTextEdit {\n"
+"    background-color:rgb(240, 240, 240);\n"
+"    border:none;\n"
+"    border-radius:10px;\n"
+"    padding-left:10px;\n"
+"    padding-right:10px;\n"
+"}\n"
+"\n"
+"QTextEdit QScrollBar::handle:vertical {\n"
+"    background-color:rgb(170, 170, 255);\n"
+"    border-radius:5px\n"
+"}")
+        self.vector_input.setReadOnly(True)
+        self.vector_input.setObjectName("vector_input")
+        self.set_vector_check = QtWidgets.QCheckBox(self.content_frame)
+        self.set_vector_check.setGeometry(QtCore.QRect(50, 180, 161, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.set_vector_check.setFont(font)
+        self.set_vector_check.setObjectName("set_vector_check")
         self.menu_frame = QtWidgets.QFrame(self.main_frame)
         self.menu_frame.setGeometry(QtCore.QRect(30, 40, 251, 531))
         self.menu_frame.setStyleSheet("QPushButton {\n"
@@ -370,7 +399,7 @@ class Ui_EncryptionWindow(object):
 
     def retranslateUi(self, EncryptionWindow):
         _translate = QtCore.QCoreApplication.translate
-        EncryptionWindow.setWindowTitle(_translate("EncryptionWindow", "Simple-DES"))
+        EncryptionWindow.setWindowTitle(_translate("EncryptionWindow", "Simple-AES"))
         self.set_key_check.setText(_translate("EncryptionWindow", "Set Key"))
         self.encrpyt_text_label.setText(_translate("EncryptionWindow", "Encrypted Text"))
         self.plain_text_label.setText(_translate("EncryptionWindow", "Plain Text"))
@@ -381,6 +410,7 @@ class Ui_EncryptionWindow(object):
         self.input_mode.setItemText(0, _translate("EncryptionWindow", "string"))
         self.input_mode.setItemText(1, _translate("EncryptionWindow", "binary"))
         self.encrpyt_text_label_2.setText(_translate("EncryptionWindow", "settings"))
+        self.set_vector_check.setText(_translate("EncryptionWindow", "Initial Vector"))
         self.decryption_button.setText(_translate("EncryptionWindow", "  Decryption"))
         self.encryption_button.setText(_translate("EncryptionWindow", "  Encryption"))
         self.crack_button.setText(_translate("EncryptionWindow", "Crack"))
