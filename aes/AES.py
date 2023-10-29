@@ -289,7 +289,7 @@ class AES:
         self.initial_vector = 0
         
         for i in range(bit_size):
-            self.initial_vector = self.initial_vector << 1 + round(random.random())
+            self.initial_vector = (self.initial_vector << 1) + round(random.random())
 
     def __generate_sbox(self):
         """

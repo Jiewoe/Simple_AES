@@ -14,7 +14,7 @@ class EncryptionWindow(QMainWindow):
 
     NORMAL = "normal encryption"
     DOUBLE = "double encryption"
-    TROUPE = "troupe encryption"
+    TROUPE = "triple encryption"
 
     def __init__(self) -> None:
         self.mode = self.ENCRYPT
@@ -193,4 +193,5 @@ class EncryptionWindow(QMainWindow):
             self.ui.encrypted_text_input.setText(text)
         else:
             self.ui.plain_text_input.setText(text)
+
 

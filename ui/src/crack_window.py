@@ -19,29 +19,19 @@ class CrackWindow(QMainWindow):
         self.ui.decryption_button.clicked.connect(self.change_decryption_window)
 
     def crack(self) -> None:
-        choose_mode = self.ui.choose_mode_group.checkedId()
-        if choose_mode == -2:
-            mode = "unicode"
-        elif choose_mode == -3:
-            mode = "binary"
-        else:
-            error_warning("Please choose input model !  ")
-            return
-
-        plain_text = self.ui.plain_text_input.text()
+        plain_text = self.ui.plain_text_input.text().replace(" ", "")
         if plain_text == "":
             error_warning("Please enter plain text !  ")
 
-        encrypted_text = self.ui.encrypted_text_input.text()
+        encrypted_text = self.ui.encrypted_text_input.text().replace(" ", "")
         if encrypted_text == "":
             error_warning("Please enter encrypted text !  ")
             return
-        elif mode == "binary" and re.match(r'^[01]+$', encrypted_text) is None:
-            error_warning("Encrypted text format has fault !  ")
+        if re.match(r'^[01]+$', plain_text) is None or re.match(r'^[01]+$', encrypted_text) is None:
+            error_warning("Plain text or encrypted text has format fault (need n*16bit binary input) !  ")
             return
 
         data_dict = {
-            "codeset": mode,
             "en_text": encrypted_text,
             "pn_text": plain_text
         }

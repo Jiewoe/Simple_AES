@@ -1,9 +1,31 @@
 from aes.AES import AES
+import random
+
 import threading
-class multiple():
+class Multiple():
     def __init__(self):
         self.__total_key=[] #用于存储所有的密钥
         self.__find_keys=[] #用于存储找到的共同密钥
+        self.bit32_key = None
+        self.bit48_key = None
+
+    def get_bit32_key(self):
+        if self.bit32_key is None:
+            key = 0
+            for i in range(32):
+                key = (key << 1) + round(random.random())
+            self.bit32_key = key
+        
+        return self.bit32_key
+    
+    def get_bit48_key(self):
+        if self.bit48_key is None:
+            key = 0
+            for i in range(48):
+                key = (key << 1) + round(random.random())
+            self.bit48_key = key
+
+        return self.bit48_key 
     
     #双重加密,输入为密钥和明文，密钥前面加0b这种为二进制或者直接十进制数
     def two_encrypt(self,key,p_text):
@@ -90,6 +112,8 @@ class multiple():
             for i in self.__find_keys:
                 print(format(i[0],'016b'),format(i[1],'016b'))
 
+    def get_find_keys(self):
+        return self.__find_keys
 
     #三重加密方案2，采取的加密解密加密的方案进行三重加密，输入48bit的密钥和16位的明文
     def three_two_encrypt(self,key,p_text):
@@ -131,7 +155,7 @@ class multiple():
     
 #输入测试的样例：
 if __name__=='__main__':
-    m=multiple()
+    m=Multiple()
     #二重加密
     c=m.two_encrypt(0b00000000111100001010110000101010,0b0)
     print(format(c,'016b'))
@@ -144,6 +168,7 @@ if __name__=='__main__':
     p3=m.three_two_decrypt(0b0,0b1101000101000011)
     print(format(c3,'016b'))
     print(format(p3,'016b'))
+
     #多重加密，pc_group是明密文对
     pc_group=[[0b0000111100001111,0b1110010001011110],[0b1111111100000000,0b0010010001010010],[0b1100110011001101,0b1010101100100010]]
     m.find_mid(pc_group)

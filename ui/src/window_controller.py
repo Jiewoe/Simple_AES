@@ -1,6 +1,7 @@
 from ui.src.crack_window import CrackWindow
 from ui.src.encryption_window import EncryptionWindow
-from ui.src.window_utils import error_warning
+from multiple_encryption.multiple import Multiple
+from ui.src.window_utils import error_warning, message_refer
 from aes.AES import AES
 
 
@@ -9,6 +10,7 @@ class WindowController:
         self.aes = AES()
         self.crack_win = CrackWindow()
         self.encryption_win = EncryptionWindow()
+        self.multiple = Multiple()
         # self.crack_thread = CrackThread()
         
         self.crack_win.hide()
@@ -24,6 +26,8 @@ class WindowController:
 
         self.encryption_win.generate_signal.connect(self.generate_text)
         self.crack_win.crack_signal.connect(self.crack)
+
+        self.encryption_win.ui.get_info_button.clicked.connect(self.get_info)
 
     def show_encryption_window(self, mode: str) -> None:
         self.crack_win.hide()
@@ -43,18 +47,13 @@ class WindowController:
             encrypt_mode = data_dict['encrypt_mode']
             vector = data_dict['vector']
 
-            if encrypt_mode == EncryptionWindow.NORMAL:
-                key_size = 16
-            elif encrypt_mode == EncryptionWindow.DOUBLE:
-                key_size = 32
-            elif encrypt_mode == EncryptionWindow.TROUPE:
-                key_size = 48
-
-            # 这里设置密钥需要更改
             if key == "":
-                self.aes.generate_key(key_size)
+                self.aes.generate_key(16)
             else:
-                self.aes.set_key(self.to_number(key))
+                key_num = self.to_number(key)
+                self.aes.set_key(key_num)
+                self.multiple.bit32_key = key_num
+                self.multiple.bit48_key = key_num
 
             if vector == "":
                 self.aes.generate_vector()
@@ -70,9 +69,25 @@ class WindowController:
                 if mode == EncryptionWindow.ENCRYPT:
                     if encrypt_mode == EncryptionWindow.NORMAL:
                         res = self.aes.group_encrypt(texts)
+                    else:
+                        if len(texts) > 1:
+                            error_warning("multiple encryption only support 16bit binary input!  ")
+                            return
+                        elif encrypt_mode == EncryptionWindow.DOUBLE:
+                            res = [self.multiple.two_encrypt(self.multiple.get_bit32_key() ,texts[0])]
+                        elif encrypt_mode == EncryptionWindow.TROUPE:
+                            res = [self.multiple.three_two_encrypt(self.multiple.get_bit48_key(), texts[0])]
                 else:
                     if encrypt_mode == EncryptionWindow.NORMAL:
                         res = self.aes.group_decrypt(texts)
+                    else:
+                        if len(texts) > 1:
+                            error_warning("multiple decryption only support 16bit binary input!  ")
+                            return
+                        elif encrypt_mode == EncryptionWindow.DOUBLE:
+                            res = [self.multiple.two_decrypt(self.multiple.get_bit32_key() ,texts[0])]
+                        elif encrypt_mode == EncryptionWindow.TROUPE:
+                            res = [self.multiple.three_two_decrypt(self.multiple.get_bit48_key(), texts[0])]
 
                 res = self.to_binary_string(res)
                 self.encryption_win.show_result(res)
@@ -82,9 +97,15 @@ class WindowController:
                 if mode == EncryptionWindow.ENCRYPT:
                     if encrypt_mode == EncryptionWindow.NORMAL:
                         res = self.aes.string_encrypt(text)
+                    else:
+                        error_warning("multiple encryption only support 16bit binary input!  ")
+                        return
                 else:
                     if encrypt_mode == EncryptionWindow.NORMAL:
                         res = self.aes.string_decrypt(text)
+                    else:
+                        error_warning("multiple decryption only support 16bit binary input!  ")
+                        return
 
                 self.encryption_win.show_result(res)
 
@@ -93,23 +114,22 @@ class WindowController:
             # error_warning("Some error happened, please enter again or restart the program !  ")
 
     def crack(self, data_dict: dict):
-        try:
-            print(data_dict["pn_text"])
-            print(data_dict["en_text"])
-            print(data_dict["codeset"])
-            if data_dict["codeset"] == "unicode":
-                res = ""
-            else:
-                self.crack_thread.solve(data_dict["pn_text"], data_dict["en_text"])
-                res = "Possible keys are:\n"
-                for key in self.crack_thread.get_keys():
-                    res += key
-                    res += '\n'
-                res = res + "\nSpent time: " + '{:.6}s'.format(str(self.crack_thread.get_time())) + '\n'
+        pt = data_dict['pn_text']
+        et = data_dict['en_text']
 
-            self.crack_win.show_result(res)
-        except Exception as e:
-            error_warning("Some error happened, please enter again or restart the program !  ")
+        pc = []
+        for i in range(0, int(len(pt)/16)):
+            pc.append([self.to_number(pt[16*i:16*(i+1)]), self.to_number(et[16*i:16*(i+1)])])
+
+        self.multiple.find_mid(pc)
+
+        res = "The cracking results of double encryption of 32bit keys are as follows. Possible keys are:\n"
+
+        for i in self.multiple.get_find_keys():
+            res = res + format(i[0],'016b')+ " " +format(i[1],'016b') + '\n'
+
+        self.crack_win.show_result(res)
+
 
     def to_binary_string(self, text: list[int]):
         res = []
@@ -125,3 +145,11 @@ class WindowController:
             num = (num << 1) + int(number)
 
         return num
+    
+    def get_info(self):
+        info = "initial vector: " + format(self.aes.initial_vector, '016b') + "\n"
+        info += "normal encryption key: " + format(self.aes.keys[0], '016b') + "\n"
+        info += "double encryption key: " + format(self.multiple.get_bit32_key(), '032b') + "\n"
+        info += "triple encryption key: " + format(self.multiple.get_bit48_key(), '048b') + "\n"
+
+        message_refer(info)
