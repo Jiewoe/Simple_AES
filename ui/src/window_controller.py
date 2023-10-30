@@ -51,9 +51,12 @@ class WindowController:
                 self.aes.generate_key(16)
             else:
                 key_num = self.to_number(key)
-                self.aes.set_key(key_num)
-                self.multiple.bit32_key = key_num
-                self.multiple.bit48_key = key_num
+                if encrypt_mode == EncryptionWindow.NORMAL:
+                    self.aes.set_key(key_num)
+                elif encrypt_mode == EncryptionWindow.DOUBLE:
+                    self.multiple.bit32_key = key_num
+                else:
+                    self.multiple.bit48_key = key_num
 
             if vector == "":
                 self.aes.generate_vector()
