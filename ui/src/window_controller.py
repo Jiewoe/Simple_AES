@@ -68,7 +68,10 @@ class WindowController:
                 res = None
                 if mode == EncryptionWindow.ENCRYPT:
                     if encrypt_mode == EncryptionWindow.NORMAL:
-                        res = self.aes.group_encrypt(texts)
+                        if len(texts) == 1:
+                            res = [self.aes.encrypt(texts[0])]
+                        else:
+                            res = self.aes.group_encrypt(texts)
                     else:
                         if len(texts) > 1:
                             error_warning("multiple encryption only support 16bit binary input!  ")
@@ -79,7 +82,10 @@ class WindowController:
                             res = [self.multiple.three_two_encrypt(self.multiple.get_bit48_key(), texts[0])]
                 else:
                     if encrypt_mode == EncryptionWindow.NORMAL:
-                        res = self.aes.group_decrypt(texts)
+                        if len(texts) == 1:
+                            res = [self.aes.decrypt(texts[0])]
+                        else:
+                            res = self.aes.group_decrypt(texts)
                     else:
                         if len(texts) > 1:
                             error_warning("multiple decryption only support 16bit binary input!  ")
