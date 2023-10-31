@@ -7,7 +7,7 @@
 
 程序界面如下：
 
-<img width="200px" alt="程序界面" src="https://github.com/Jiewoe/Simple_AES/assets/145518095/2e8b0e5f-8545-467c-a2dc-5cd77ba2458a">
+<img width="300px" alt="程序界面" src="https://github.com/Jiewoe/Simple_AES/assets/145518095/2e8b0e5f-8545-467c-a2dc-5cd77ba2458a">
 
 
 
