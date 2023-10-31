@@ -6,7 +6,9 @@
 **./docs 目录存储任务所需的相关测试结果、用户手册和开发手册。
 
 程序界面如下：
-![image](https://github.com/Jiewoe/Simple_AES/assets/145518095/506e2308-3c6f-4698-8d6e-a555558be7d4)
+
+<img width="200px" alt="程序界面" src="https://github.com/Jiewoe/Simple_AES/assets/145518095/2e8b0e5f-8545-467c-a2dc-5cd77ba2458a">
+
 
 
 
