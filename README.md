@@ -28,10 +28,11 @@ Assuming that you find one or more plaintext and ciphertext pairs using the same
 Use 48bits (K1+K2+K3) mode for triple encryption and decryption.
 
 5. Working Mode  
+Based on the S-AES algorithm, longer plaintext messages are encrypted using Cipher Block Chaining (CBC) mode. Note that the initial vector (16 bits) is generated and needs to be shared by both encryption and decryption parties. Encrypt in CBC mode, try to replace or modify the ciphertext group, and then decrypt. Please compare the decryption results before and after tampering with the ciphertext.
 
 The program interface is as follows:
 
-<img width="300px" alt="程序界面" src="https://github.com/Jiewoe/Simple_AES/assets/145518095/2e8b0e5f-8545-467c-a2dc-5cd77ba2458a">
+![Alt text](./png/image.png)
 
 Quickly deploy and start (make sure your computer has python and git installed before):
 

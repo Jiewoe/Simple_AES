@@ -34,9 +34,7 @@
 
 程序界面如下：
 
-<img width="300px" alt="程序界面" src="https://github.com/Jiewoe/Simple_AES/assets/145518095/2e8b0e5f-8545-467c-a2dc-5cd77ba2458a">
-
-
+![Alt text](../png/image.png)
 
 快速部署并启动我们的程序（确保您的计算机之前安装了 python 和 git）：
 
