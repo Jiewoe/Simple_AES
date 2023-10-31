@@ -6,7 +6,8 @@
 **./docs 目录存储任务所需的相关测试结果、用户手册和开发手册。
 
 程序界面如下：
-![image](https://github.com/Jiewoe/Simple_AES/assets/145518095/08693c95-b320-48bb-a095-27aa58907248)
+![image](https://github.com/Jiewoe/Simple_AES/assets/145518095/506e2308-3c6f-4698-8d6e-a555558be7d4)
+
 
 
 快速部署并启动我们的程序（确保您的计算机之前安装了 python 和 git）：
